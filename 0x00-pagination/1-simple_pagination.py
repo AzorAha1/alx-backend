@@ -60,7 +60,8 @@ class Server:
             and page_size > 0,\
             "AssertionError raised when page and/or page_size are not ints"
         start, end = self.index_range(page, page_size)
-        try:
-            return self.dataset()[start:end]
-        except IndexError:
+        dataset = self.dataset()
+        if start >= len(dataset):
             return []
+        else:
+            return dataset[start:end]
