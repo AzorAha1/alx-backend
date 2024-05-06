@@ -53,12 +53,8 @@ class Server:
         Returns:
             List[List]: _description_
         """
-        assert isinstance(page, int)\
-            and page > 0,\
-            "AssertionError raised when page and/or page_size are not ints"
-        assert isinstance(page_size, int)\
-            and page_size > 0,\
-            "AssertionError raised when page and/or page_size are not ints"
+        assert isinstance(page, int) and isinstance(page_size, int)
+        assert page > 0 and page_size > 0
         start, end = self.index_range(page, page_size)
         dataset = self.dataset()
         try:
