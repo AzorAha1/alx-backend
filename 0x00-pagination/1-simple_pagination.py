@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import csv
 import math
 from typing import List
@@ -45,7 +46,6 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """_summary_
-
         Args:
             page (int, optional): _description_. Defaults to 1.
             page_size (int, optional): _description_. Defaults to 10.
