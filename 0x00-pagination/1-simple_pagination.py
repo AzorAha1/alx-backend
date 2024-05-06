@@ -36,6 +36,15 @@ class Server:
         return (start_index, end_index)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """_summary_
+
+        Args:
+            page (int, optional): _description_. Defaults to 1.
+            page_size (int, optional): _description_. Defaults to 10.
+
+        Returns:
+            List[List]: _description_
+        """
         assert isinstance(page, int)\
             and page > 0,\
             "AssertionError raised when page and/or page_size are not ints"
