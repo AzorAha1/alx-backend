@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-import csv
-import math
-from typing import List
-
-
 """sumary_line
 
 Keyword arguments:
 argument -- description
 Return: return_description
 """
+
+
+import csv
+import math
+from typing import List
+
 
 index_range = __import__('0-simple_helper_function').index_range
 
