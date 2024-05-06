@@ -2,12 +2,16 @@
 import csv
 import math
 from typing import List
+
+
 """sumary_line
 
 Keyword arguments:
 argument -- description
 Return: return_description
 """
+
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
@@ -31,19 +35,6 @@ class Server:
 
         return self.__dataset
 
-    def index_range(self, page: int, page_size: int) -> tuple:
-        """_summary_
-        Args:
-            page (int): _description_
-            page_size (int): _description_
-
-        Returns:
-            tuple: _description_
-        """
-        start_index = (page - 1) * page_size
-        end_index = (page * page_size)
-        return (start_index, end_index)
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """_summary_
         Args:
@@ -55,9 +46,7 @@ class Server:
         """
         assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
-        indices = self.index_range(page, page_size)
-        start = indices[0]
-        end = indices[1]
+        start, end = self.index_range(page, page_size)
         dataset = self.dataset()
         try:
             return dataset[start:end]
