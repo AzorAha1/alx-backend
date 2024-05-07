@@ -26,12 +26,12 @@ class BasicCache(BaseCaching):
             key (_type_): _description_
             item (_type_): _description_
         """
-        self.cache_data[key] = item
         if key is None or item is None:
-            pass
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            discard_key, dvalue = self.cache_data.popitem()
-            print(f'DISCARD {discard_key}')
+            return
+        self.cache_data[key] = item
+        # if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+        #     discard_key, _ = self.cache_data.popitem()
+        #     print(f'DISCARD {discard_key}')
 
     def get(self, key):
         """_summary_
@@ -42,6 +42,6 @@ class BasicCache(BaseCaching):
         Returns:
             _type_: _description_
         """
-        if key is None or key not in self.cache_data:
+        if key not in self.cache_data:
             return None
-        return self.cache_data[key]
+        return self.cache_data.get(key)
