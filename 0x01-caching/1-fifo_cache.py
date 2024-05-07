@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """sumary_line
+
 Keyword arguments:
 argument -- description
 Return: return_description
 """
+
+
 from base_caching import BaseCaching
 
 
-class BasicCache(BaseCaching):
+class FIFOCache(BaseCaching):
     """_summary_
 
     Args:
@@ -29,7 +32,11 @@ class BasicCache(BaseCaching):
         if key is None or item is None:
             return
         self.cache_data[key] = item
-        
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            discard_key = next(iter(self.cache_data))
+            del self.cache_data[discard_key]
+            print(f'DISCARD {discard_key}\n')
+
     def get(self, key):
         """_summary_
 
@@ -39,6 +46,6 @@ class BasicCache(BaseCaching):
         Returns:
             _type_: _description_
         """
-        if key not in self.cache_data:
+        if key not in self.cache_data or key is None:
             return None
         return self.cache_data.get(key)
