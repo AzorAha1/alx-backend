@@ -38,6 +38,13 @@ class LRUCache(BaseCaching):
             print(f'DISCARD: {discard_key}')
 
     def get(self, key):
+        """get
+        Args:
+            key (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         if key is None or key not in self.cache_data:
             return None
         if key in self.cache_data:
