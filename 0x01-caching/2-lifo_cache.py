@@ -22,6 +22,7 @@ class LIFOCache(BaseCaching):
         """
         super().__init__()
         self.cache_data = {}
+        self.key_in_order = []
 
     def put(self, key, item):
         """_summary_
@@ -32,13 +33,13 @@ class LIFOCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        self.cache_data[key] = item
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # create a deque from the keys of cache_data
-            key_deque = deque(self.cache_data.keys())
-            discard_key = key_deque.pop()
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            discard_key = self.key_in_order.pop(-1)
             del self.cache_data[discard_key]
             print(f'DISCARD: {discard_key}')
+        self.cache_data[key] = item
+        if key not in self.key_in_order:
+            self.key_in_order.append(key)
 
     def get(self, key):
         """_summary_
