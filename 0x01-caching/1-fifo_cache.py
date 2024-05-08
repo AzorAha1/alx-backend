@@ -35,7 +35,7 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             discard_key = next(iter(self.cache_data))
             del self.cache_data[discard_key]
-            print(f'DISCARD {discard_key}\n')
+            print(f'DISCARD: {discard_key}')
 
     def get(self, key):
         """_summary_
@@ -46,6 +46,6 @@ class FIFOCache(BaseCaching):
         Returns:
             _type_: _description_
         """
-        if key not in self.cache_data or key is None:
+        if key is None or key not in self.cache_data:
             return None
         return self.cache_data.get(key)
