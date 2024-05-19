@@ -37,6 +37,7 @@ def get_locale():
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 def get_user():
     """_summary_
 
@@ -44,14 +45,16 @@ def get_user():
         _type_: _description_
     """
     login_as = request.args.get('login_as')
-    if login_as in users:
+    if login_as and login_as.isdigit() and int(login_as) in users:
         return users[int(login_as)]
     else:
         None
 
-app.before_request
+
+@app.before_request
 def before_request():
     g.user = get_user()
+
 
 @app.route('/')
 def index3():
@@ -60,7 +63,7 @@ def index3():
     Returns:
         _type_: _description_
     """
-    return render_template('4-index.html')
+    return render_template('5-index.html', username=g.user)
 
 
 if __name__ == '__main__':
