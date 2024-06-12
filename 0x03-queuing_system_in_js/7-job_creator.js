@@ -57,8 +57,8 @@ for (const jobinfo of jobs) {
     job.on('complete', result => {
         console.log('Notification job completed')
     }).on('failed', error => {
-        console.log(`Notification job ${job.id} failed: ${error}`)
+        console.log(`Notification job #${job.id} failed: ${error}`)
     }).on('progress', progress => {
-        console.log(`Notification job ${job.id} ${progress}% complete`)
+        console.log(`Notification job #${job.id} ${progress}% complete`)
     })
 }
