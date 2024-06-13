@@ -79,10 +79,9 @@ app.get('/process', async (req, res) => {
                 }
 
                 console.log(`Seat reservation job ${job.id} completed`);
-                done(); // Mark the job as done
+                done();
             } else {
-                console.log(`Seat reservation job ${job.id} failed: Not enough seats available`);
-                done(new Error('Not enough seats available')); // Fail the job with an error
+                done(new Error('Not enough seats available'));
             }
         } catch (error) {
             console.error(`Seat reservation job ${job.id} failed: ${error.message}`);
