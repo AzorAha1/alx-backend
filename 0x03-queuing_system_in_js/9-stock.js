@@ -61,7 +61,7 @@ app.get('/reserve_product/:itemId', async (req, res) => {
     if (stocktouse <= 0) {
         return res.json({ status: 'Not enough stock available', itemId });
     }
-    await reserveStockById(itemId, availableStock - 1);
+    await reserveStockById(itemId, stocktouse - 1);
     res.json({ status: 'Reservation confirmed', itemId });
 })
 app.listen(port, () => {
