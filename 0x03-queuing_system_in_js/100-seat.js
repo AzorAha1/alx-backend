@@ -64,9 +64,33 @@ app.get('/reserve_seat', async (req, res) => {
 //         If the new number of available seats is more or equal than 0, the job is successful
 //         Otherwise, fail the job with an Error with the message Not enough seats available
 app.get('/process', async (req, res) => {
-    return {'status': 'Queue processing'}
-    
-})
+    res.json({ 'status': 'Queue processing' }); // Send the initial response
+
+    queue.process('reserve_seat', async (job, done) => {
+        try {
+            let currentSeats = await getCurrentAvailableSeats();
+
+            if (currentSeats >= 0) {
+                await reserveSeat(currentSeats - 1);
+                currentSeats--;
+
+                if (currentSeats === 0) {
+                    reservationEnabled = false;
+                }
+
+                console.log(`Seat reservation job ${job.id} completed`);
+                done(); // Mark the job as done
+            } else {
+                console.log(`Seat reservation job ${job.id} failed: Not enough seats available`);
+                done(new Error('Not enough seats available')); // Fail the job with an error
+            }
+        } catch (error) {
+            console.error(`Seat reservation job ${job.id} failed: ${error.message}`);
+            done(error); 
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
